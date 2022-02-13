@@ -16,6 +16,7 @@ public class UserDAO implements CrudDAO<User> {
 		try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
 
 			String sql = "select * from users where email = ? and upassword = ?";
+
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, email);
 			pstmt.setString(2, password);

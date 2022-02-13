@@ -59,7 +59,7 @@ public class UserService {
 
 //		boolean IdAvailable = userDao.findById(user.getId()) != null;
 //		boolean idAvailable = userDao.findById(user.getId()) != null;
-		
+
 		boolean IdAvailable = true;
 		boolean idAvailable = true;
 
@@ -69,37 +69,36 @@ public class UserService {
 			} else if (IdAvailable) {
 				throw new ResourcePersistenceException("The provided User does not exist in the database");
 			} else {
-				throw new ResourcePersistenceException(
-						"User does not exist in the database");
+				throw new ResourcePersistenceException("User does not exist in the database");
 			}
 		}
-		
+
 		user.setId(sessionUser.getId());
 		boolean persistedUser = userDao.update(user);
 
 		if (!persistedUser) {
 			throw new ResourcePersistenceException("The User could not be persisted");
 		}
-		
+
 		sessionUser = user;
 
 		return user;
 	}
 
-	public void authenticateUser(String email, String password) {
+	public User authenticateUser(String username, String password) {
 
-		if (email == null || email.trim().equals("")) {
-			throw new InvalidRequestException("Either email is an invalid entry. Please try logging in again");
+		if (username == null || username.trim().equals("") || password == null || password.trim().equals("")) {
+			throw new InvalidRequestException(
+					"Either username or password is an invalid entry. Please try logging in again");
 		}
 
-//		User authenticatedUser = userDao.findByEmail(email);
-		User authenticatedUser = userDao.findByEmailAndPassword(email, password);
+		User authenticatedScientist = userDao.findByEmailAndPassword(username, password);
 
-		if (authenticatedUser == null) {
+		if (authenticatedScientist == null) {
 			throw new AuthenticationException(
 					"Unauthenticated user, information provided was not found in our database.");
 		}
-		sessionUser = authenticatedUser;
+		return authenticatedScientist;
 	}
 
 	public boolean isUserValid(User newUser) {
