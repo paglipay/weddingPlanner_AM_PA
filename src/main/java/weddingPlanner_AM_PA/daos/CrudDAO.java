@@ -1,4 +1,4 @@
-package weddingPlanner_AM_PA.dao;
+package weddingPlanner_AM_PA.daos;
 
 import weddingPlanner_AM_PA.util.collections.List;
 

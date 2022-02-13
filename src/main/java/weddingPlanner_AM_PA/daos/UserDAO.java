@@ -1,4 +1,4 @@
-package weddingPlanner_AM_PA.dao;
+package weddingPlanner_AM_PA.daos;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
